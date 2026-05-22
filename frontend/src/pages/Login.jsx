@@ -6,8 +6,8 @@ const ROLES = ['Admin', 'Data Analyst']
 
 export default function Login({ onSuccess, onBack }) {
   const [form, setForm] = useState({
-    email: '',
-    password: '',
+    email: 'admin@churnshield.ai',
+    password: 'Admin@123',
     role: 'Admin',
   })
   const [showPwd, setShowPwd] = useState(false)
@@ -153,6 +153,12 @@ export default function Login({ onSuccess, onBack }) {
               {loading ? <><Loader2 size={18} className="animate-spin" /> Signing in…</> : 'Login'}
             </button>
           </form>
+
+          <div className="mt-6 p-4 rounded-xl bg-slate-950/60 border border-white/10 text-xs text-slate-400">
+            <p className="font-medium text-slate-300 mb-1">MongoDB Login Credentials</p>
+            <p>Email: <span className="text-cyan-300">admin@churnshield.ai</span></p>
+            <p>Password: <span className="text-cyan-300">Admin@123</span></p>
+          </div>
         </div>
       </div>
     </div>
