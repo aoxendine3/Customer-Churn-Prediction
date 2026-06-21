@@ -68,4 +68,11 @@ export const settingsApi = {
   changePassword: (data) => api.post('/api/settings/password', data),
   revealApiKey: () => api.get('/api/settings/api-key'),
   regenerateApiKey: () => api.post('/api/settings/api-key/regenerate'),
+  getAttestationKey: () => api.get('/api/settings/attestation-key'),
 }
+
+export const safetyApi = {
+  getPending: () => api.get('/api/safety/pending-reviews'),
+  resolve: (id, data) => api.post(`/api/safety/pending-reviews/${id}/resolve`, data),
+}
+

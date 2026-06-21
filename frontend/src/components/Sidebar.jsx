@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
   BarChart3, BrainCircuit, ChevronLeft, ChevronRight,
-  FileText, LogOut, PieChart, Settings, Shield, Upload, Users,
+  FileText, LogOut, PieChart, Settings, Shield, Upload, Users, ShieldAlert,
 } from 'lucide-react'
 
 const NAV_ITEMS = [
@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { key: 'risk',        label: 'Risk Analysis',          Icon: Users },
   { key: 'performance', label: 'Model Performance',      Icon: PieChart },
   { key: 'retention',   label: 'Retention Strategy',     Icon: Shield },
+  { key: 'reviews',     label: 'Safety Reviews',         Icon: ShieldAlert },
   { key: 'reports',     label: 'Reports',                Icon: FileText },
   { key: 'settings',    label: 'Settings',               Icon: Settings },
 ]

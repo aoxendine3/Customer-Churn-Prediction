@@ -6,8 +6,8 @@ const ROLES = ['Admin', 'Data Analyst']
 
 export default function Login({ onSuccess, onBack }) {
   const [form, setForm] = useState({
-    email: 'admin@churnshield.ai',
-    password: 'Admin@123',
+    email: '',
+    password: '',
     role: 'Admin',
   })
   const [showPwd, setShowPwd] = useState(false)
@@ -74,7 +74,10 @@ export default function Login({ onSuccess, onBack }) {
             ← Back to Home
           </button>
 
-          <div className="flex items-center gap-3 mb-6">
+          <div
+            onClick={onBack}
+            className="flex items-center gap-3 mb-6 cursor-pointer"
+          >
             <div className="w-10 h-10 rounded-xl glow-btn flex items-center justify-center">
               <ShieldCheck size={20} />
             </div>
@@ -154,11 +157,7 @@ export default function Login({ onSuccess, onBack }) {
             </button>
           </form>
 
-          <div className="mt-6 p-4 rounded-xl bg-slate-950/60 border border-white/10 text-xs text-slate-400">
-            <p className="font-medium text-slate-300 mb-1">MongoDB Login Credentials</p>
-            <p>Email: <span className="text-cyan-300">admin@churnshield.ai</span></p>
-            <p>Password: <span className="text-cyan-300">Admin@123</span></p>
-          </div>
+
         </div>
       </div>
     </div>

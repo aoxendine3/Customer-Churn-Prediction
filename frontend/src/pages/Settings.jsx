@@ -84,6 +84,7 @@ export default function Settings() {
   const [success, setSuccess] = useState('')
   const [activeTab, setActiveTab] = useState('profile')
   const [apiVisible, setApiVisible] = useState(false)
+  const [attestationKey, setAttestationKey] = useState('')
 
   const tabs = useMemo(
     () => [
@@ -114,6 +115,17 @@ export default function Settings() {
         if (!ignore) {
           setLoading(false)
         }
+      })
+
+    settingsApi
+      .getAttestationKey()
+      .then((res) => {
+        if (!ignore) {
+          setAttestationKey(res.data.public_key || '')
+        }
+      })
+      .catch((err) => {
+        console.warn('Failed to load attestation public key:', err)
       })
 
     return () => {
@@ -626,6 +638,32 @@ export default function Settings() {
                     : 'Not available'}
                 </p>
               </div>
+
+              {attestationKey && (
+                <div className="pt-6 border-t border-white/10">
+                  <h4 className="text-sm font-medium text-slate-300 mb-2">
+                    Xoras Machine Attestation Public Key
+                  </h4>
+                  <p className="text-xs text-slate-400 mb-3 leading-relaxed">
+                    This public key represents this specific local workstation's hardware attestation identity (RSA-SHA256). All human safety review overrides are signed by the corresponding private key on disk.
+                  </p>
+                  <div className="relative">
+                    <pre className="font-mono text-[10px] bg-slate-950/60 border border-white/5 rounded-xl p-4 text-cyan-300/80 overflow-x-auto max-h-36 scrollbar">
+                      {attestationKey}
+                    </pre>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(attestationKey)
+                        showMessage('Attestation public key copied to clipboard!', 'success')
+                      }}
+                      className="absolute top-2 right-2 p-1.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-slate-300 transition"
+                      title="Copy Key"
+                    >
+                      <Copy size={12} />
+                    </button>
+                  </div>
+                </div>
+              )}
 
               <div className="pt-6 border-t border-white/10">
                 <h4 className="text-sm font-medium text-slate-300 mb-4">

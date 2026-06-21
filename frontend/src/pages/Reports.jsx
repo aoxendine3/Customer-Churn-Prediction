@@ -66,7 +66,7 @@ const RECENT = [
   { name: 'accuracy_report.csv',  date: '2025-01-08',  size: '32 KB',  status: 'Ready' },
 ]
 
-export default function Reports() {
+export default function Reports({ setPage }) {
   const [downloading, setDownloading] = useState({})
   const [downloaded, setDownloaded] = useState({})
   const [error, setError] = useState('')
@@ -173,7 +173,18 @@ export default function Reports() {
       <div className="glass rounded-2xl p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-bold">Scheduled Reports</h3>
-          <button className="glow-btn px-4 py-2 rounded-xl text-sm font-semibold">+ Schedule</button>
+          <button
+            onClick={() => {
+              if (setPage) {
+                setPage('settings')
+              } else {
+                alert("Please navigate to Settings > Notifications to schedule reports.")
+              }
+            }}
+            className="glow-btn px-4 py-2 rounded-xl text-sm font-semibold"
+          >
+            + Schedule
+          </button>
         </div>
         <div className="space-y-3">
           {[

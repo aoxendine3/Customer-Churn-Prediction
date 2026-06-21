@@ -13,7 +13,6 @@ import { uploadApi } from '../services/api.js'
 
 const REQUIRED_COLS = [
   'Customer ID',
-  'Name',
   'Age',
   'Gender',
   'Location',
@@ -51,6 +50,7 @@ export default function UploadPage({ setPage }) {
   const [status, setStatus] = useState(null)
   const [loading, setLoading] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [missingCols, setMissingCols] = useState([])
   const inputRef = useRef(null)
 
   const pickFile = (selectedFile) => {
@@ -61,17 +61,20 @@ export default function UploadPage({ setPage }) {
 
     if (!validType) {
       setStatus({ type: 'error', message: 'Only CSV or Excel files are supported.' })
+      setMissingCols([])
       return
     }
 
     if (selectedFile.size > MAX_FILE_SIZE) {
       setStatus({ type: 'error', message: 'File size must be less than 1GB.' })
+      setMissingCols([])
       return
     }
 
     setFile(selectedFile)
     setProgress(0)
     setStatus(null)
+    setMissingCols([])
   }
 
   const onDrop = (e) => {
@@ -95,11 +98,17 @@ export default function UploadPage({ setPage }) {
     setLoading(true)
     setStatus(null)
     setProgress(0)
+    setMissingCols([])
 
     try {
       const res = await uploadApi.validate(buildFormData())
       setStatus({ type: 'success', message: res.data.message || 'Dataset validation successful.' })
+      setMissingCols([])
     } catch (err) {
+      const data = err.response?.data || {}
+      if (data.missing_columns?.length) {
+        setMissingCols(data.missing_columns)
+      }
       setStatus({ type: 'error', message: getErrorMessage(err) })
     } finally {
       setLoading(false)
@@ -115,6 +124,7 @@ export default function UploadPage({ setPage }) {
     setLoading(true)
     setStatus(null)
     setProgress(0)
+    setMissingCols([])
 
     try {
       const res = await uploadApi.upload(buildFormData(), (event) => {
@@ -123,7 +133,12 @@ export default function UploadPage({ setPage }) {
       })
       setStatus({ type: 'success', message: res.data.message || 'Dataset uploaded successfully.' })
       setProgress(100)
+      setMissingCols([])
     } catch (err) {
+      const data = err.response?.data || {}
+      if (data.missing_columns?.length) {
+        setMissingCols(data.missing_columns)
+      }
       setStatus({ type: 'error', message: getErrorMessage(err) })
     } finally {
       setLoading(false)
@@ -230,16 +245,29 @@ export default function UploadPage({ setPage }) {
       </div>
 
       <div className="glass rounded-2xl p-6">
-        <h3 className="font-bold mb-4 flex items-center gap-2">
+        <h3 className="font-bold mb-2 flex items-center gap-2">
           <FileCheck size={18} className="text-cyan-300" />
           Required Columns
         </h3>
+        <p className="text-xs text-slate-400 mb-4">
+          Your uploaded CSV or Excel file must contain these exact column headers. If any required columns are missing, they will be highlighted below.
+        </p>
         <div className="flex flex-wrap gap-2">
-          {REQUIRED_COLS.map((col) => (
-            <span key={col} className="px-3 py-2 rounded-lg bg-slate-900 border border-white/10 text-xs text-slate-300">
-              {col}
-            </span>
-          ))}
+          {REQUIRED_COLS.map((col) => {
+            const isMissing = missingCols.includes(col)
+            return (
+              <span
+                key={col}
+                className={`px-3 py-2 rounded-lg border text-xs transition-all duration-300 ${
+                  isMissing
+                    ? 'bg-red-500/20 border-red-500 text-red-200 animate-pulse font-bold'
+                    : 'bg-slate-900 border-white/10 text-slate-300'
+                }`}
+              >
+                {col} {isMissing && '❌'}
+              </span>
+            )
+          })}
         </div>
       </div>
 

@@ -237,6 +237,8 @@ export default function Performance() {
                     borderRadius: 8,
                     fontSize: 11,
                   }}
+                  itemStyle={{ color: '#ffffff' }}
+                  labelStyle={{ color: '#94a3b8' }}
                   formatter={(v) => [`${Number(v).toFixed(1)}%`, 'Importance']}
                 />
 
@@ -296,6 +298,8 @@ export default function Performance() {
                     borderRadius: 8,
                     fontSize: 11,
                   }}
+                  itemStyle={{ color: '#ffffff' }}
+                  labelStyle={{ color: '#94a3b8' }}
                   formatter={(v) => [`${Number(v).toFixed(1)}%`, '']}
                 />
 

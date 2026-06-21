@@ -117,6 +117,7 @@ export default function Dashboard() {
               <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} tickLine={false} unit="%" />
               <Tooltip
                 contentStyle={{ background: '#0c1427', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, fontSize: 12 }}
+                itemStyle={{ color: '#ffffff' }}
                 labelStyle={{ color: '#94a3b8' }}
               />
               <Area dataKey="risk" stroke="#6d5dfc" strokeWidth={2.5} fill="url(#riskGrad)" name="Churn Risk %" />
@@ -141,6 +142,8 @@ export default function Dashboard() {
               </Pie>
               <Tooltip
                 contentStyle={{ background: '#0c1427', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, fontSize: 12 }}
+                itemStyle={{ color: '#ffffff' }}
+                labelStyle={{ color: '#94a3b8' }}
                 formatter={(val) => [val.toLocaleString(), '']}
               />
               <Legend
@@ -163,7 +166,11 @@ export default function Dashboard() {
             </defs>
             <XAxis dataKey="month" tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} tickLine={false} />
             <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} axisLine={false} tickLine={false} />
-            <Tooltip contentStyle={{ background: '#0c1427', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, fontSize: 12 }} />
+            <Tooltip
+              contentStyle={{ background: '#0c1427', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, fontSize: 12 }}
+              itemStyle={{ color: '#ffffff' }}
+              labelStyle={{ color: '#94a3b8' }}
+            />
             <Bar dataKey="customers" fill="url(#custGrad)" radius={[4, 4, 0, 0]} name="Customers" />
           </BarChart>
         </ResponsiveContainer>

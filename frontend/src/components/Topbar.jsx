@@ -8,12 +8,15 @@ const NAV_ITEMS = [
   { key: 'risk', label: 'Risk Analysis' },
   { key: 'performance', label: 'Model Performance' },
   { key: 'retention', label: 'Retention Strategy' },
+  { key: 'reviews', label: 'Safety Reviews' },
   { key: 'reports', label: 'Reports' },
   { key: 'settings', label: 'Settings' },
 ]
 
 export default function Topbar({ title, page, setPage, logout }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [showNotifications, setShowNotifications] = useState(false)
+  const [showProfileMenu, setShowProfileMenu] = useState(false)
 
   return (
     <>
@@ -39,22 +42,83 @@ export default function Topbar({ title, page, setPage, logout }) {
             <input
               className="bg-transparent outline-none text-sm w-full placeholder-slate-500"
               placeholder="Search..."
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setPage('predict');
+                }
+              }}
             />
           </div>
 
-          <button className="relative p-2 text-slate-300 hover:text-white">
-            <Bell size={18} />
-            <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500" />
-          </button>
+          {/* Notifications Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => {
+                setShowNotifications(!showNotifications)
+                setShowProfileMenu(false)
+              }}
+              className="relative p-2 text-slate-300 hover:text-white rounded-lg hover:bg-white/5 transition"
+            >
+              <Bell size={18} />
+              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500 animate-ping" />
+              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500" />
+            </button>
+            {showNotifications && (
+              <div className="absolute right-0 mt-2 w-72 glass border border-white/10 rounded-xl p-3 shadow-xl z-50">
+                <h4 className="font-bold text-xs text-slate-400 uppercase tracking-wider mb-2 font-mono">Notifications</h4>
+                <div className="space-y-2">
+                  <div className="p-2 hover:bg-white/5 rounded-lg text-xs transition">
+                    <p className="font-semibold text-white">System Shield Active</p>
+                    <p className="text-slate-400 mt-0.5 font-mono">Sovereign safety ledger is synced and running.</p>
+                  </div>
+                  <div className="p-2 hover:bg-white/5 rounded-lg text-xs transition">
+                    <p className="font-semibold text-white">XGBoost Model Verified</p>
+                    <p className="text-slate-400 mt-0.5 font-mono">Model evaluated at 93.0% accuracy.</p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
 
-          <div className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-full glow-btn flex items-center justify-center shrink-0">
-              <Shield size={16} />
+          {/* Profile Dropdown */}
+          <div className="relative">
+            <div
+              onClick={() => {
+                setShowProfileMenu(!showProfileMenu)
+                setShowNotifications(false)
+              }}
+              className="flex items-center gap-2 cursor-pointer hover:bg-white/5 p-1 rounded-xl transition"
+            >
+              <div className="w-9 h-9 rounded-full glow-btn flex items-center justify-center shrink-0">
+                <Shield size={16} />
+              </div>
+              <div className="hidden sm:block">
+                <p className="text-sm font-semibold leading-tight">Admin</p>
+                <p className="text-xs text-slate-400">Administrator</p>
+              </div>
             </div>
-            <div className="hidden sm:block">
-              <p className="text-sm font-semibold leading-tight">Admin</p>
-              <p className="text-xs text-slate-400">Administrator</p>
-            </div>
+            {showProfileMenu && (
+              <div className="absolute right-0 mt-2 w-48 glass border border-white/10 rounded-xl p-2 shadow-xl z-50">
+                <button
+                  onClick={() => {
+                    setPage('settings')
+                    setShowProfileMenu(false)
+                  }}
+                  className="w-full text-left px-3 py-2 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition"
+                >
+                  Settings
+                </button>
+                <button
+                  onClick={() => {
+                    logout()
+                    setShowProfileMenu(false)
+                  }}
+                  className="w-full text-left px-3 py-2 text-xs font-semibold text-red-400 hover:bg-red-500/10 rounded-lg transition"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </header>

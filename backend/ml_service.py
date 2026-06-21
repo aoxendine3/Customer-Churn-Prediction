@@ -131,7 +131,13 @@ def get_feature_importance() -> list[dict]:
 
 
 def _safe_float(val) -> float:
+    import math
     try:
-        return float(val) if val not in (None, "", "N/A") else 0.0
+        if val is None or str(val).strip().lower() in ("", "n/a", "nan", "null", "none", "inf", "-inf"):
+            return 0.0
+        f = float(val)
+        if math.isnan(f) or math.isinf(f):
+            return 0.0
+        return f
     except (ValueError, TypeError):
         return 0.0

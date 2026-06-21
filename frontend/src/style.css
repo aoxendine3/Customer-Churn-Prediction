@@ -11,7 +11,15 @@
 }
 
 html, body, #root {
-  height: 100%;
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  overflow-x: hidden;
 }
 
 body {
@@ -20,8 +28,9 @@ body {
   background: #020716;
   color: #eef4ff;
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
 }
+
+
 
 /* ─── Backgrounds ───────────────────────────────────────────────── */
 .ai-bg {

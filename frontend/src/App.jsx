@@ -14,6 +14,8 @@ const Performance = lazy(() => import('./pages/Performance.jsx'))
 const Retention = lazy(() => import('./pages/Retention.jsx'))
 const Reports = lazy(() => import('./pages/Reports.jsx'))
 const Settings = lazy(() => import('./pages/Settings.jsx'))
+const ReviewsPage = lazy(() => import('./pages/ReviewsPage.jsx'))
+
 
 const PAGE_TITLES = {
   dashboard: 'Dashboard',
@@ -24,7 +26,9 @@ const PAGE_TITLES = {
   retention: 'Retention Strategy',
   reports: 'Reports',
   settings: 'Settings',
+  reviews: 'Safety Reviews',
 }
+
 
 function PageLoader() {
   return (
@@ -47,6 +51,10 @@ export default function App() {
   const [screen, setScreen] = useState(getInitialScreen)
   const [page, setPage] = useState(getInitialPage)
 
+  const handlePageChange = (nextPage) => {
+    setPage(PAGE_TITLES[nextPage] ? nextPage : 'dashboard')
+  }
+
   const pages = useMemo(
     () => ({
       dashboard: <Dashboard />,
@@ -55,11 +63,13 @@ export default function App() {
       risk: <RiskAnalysis />,
       performance: <Performance />,
       retention: <Retention />,
-      reports: <Reports />,
+      reports: <Reports setPage={handlePageChange} />,
       settings: <Settings />,
+      reviews: <ReviewsPage />,
     }),
-    []
+    [handlePageChange]
   )
+
 
   useEffect(() => {
     if (screen === 'app') localStorage.setItem('churn_active_page', page)
@@ -74,10 +84,6 @@ export default function App() {
 
   const goLogin = () => setScreen('login')
   const goLanding = () => setScreen('landing')
-
-  const handlePageChange = (nextPage) => {
-    setPage(PAGE_TITLES[nextPage] ? nextPage : 'dashboard')
-  }
 
   const onLoginSuccess = () => {
     setScreen('app')
@@ -109,7 +115,7 @@ export default function App() {
       <Sidebar page={page} setPage={handlePageChange} logout={logout} />
       <main className="flex-1 min-w-0 h-screen overflow-hidden flex flex-col">
         <Topbar title={currentTitle} page={page} setPage={handlePageChange} logout={logout} />
-        <section className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-5 lg:p-8 scroll-smooth">
+        <section className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-5 lg:p-8 pb-24 lg:pb-32 scroll-smooth">
           <Suspense fallback={<PageLoader />}>{CurrentPage}</Suspense>
         </section>
       </main>
