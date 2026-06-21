@@ -19,6 +19,7 @@ from pymongo import UpdateOne
 from database import get_db
 from auth import verify_login, make_token, decode_token, seed_default_users
 from ml_service import predict_churn, validate_columns, get_feature_importance
+from healing_pulse import HealingPulse
 
 load_dotenv()
 
@@ -28,6 +29,11 @@ app.config["MAX_CONTENT_LENGTH"] = int(os.getenv("MAX_UPLOAD_MB", "1024")) * 102
 # Parse CORS origins: support comma-separated list of origins
 frontend_env = os.getenv("FRONTEND_URL", "http://localhost:5173")
 frontend_origins = [origin.strip() for origin in frontend_env.split(",") if origin.strip()]
+
+# Attach Sovereign Healing Pulse
+pulse = HealingPulse()
+pulse.init_app(app)
+
 CORS(
     app,
     resources={r"/api/*": {"origins": frontend_origins}},
