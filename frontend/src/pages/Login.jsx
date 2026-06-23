@@ -53,7 +53,7 @@ export default function Login({ onSuccess, onBack }) {
             Leverage XGBoost machine learning to predict customer churn with 94.2% accuracy and protect your revenue.
           </p>
           <div className="grid grid-cols-2 gap-4 mt-6">
-            {[['94.2%', 'Accuracy'], ['25.4K+', 'Customers'], ['18.01%', 'Churn Risk'], ['₹8.45L', 'At Risk']].map(([v, l]) => (
+            {[['94.2%', 'Accuracy'], ['25.4K+', 'Customers'], ['18.01%', 'Churn Risk'], ['$845K', 'At Risk']].map(([v, l]) => (
               <div key={l} className="text-center">
                 <div className="text-cyan-300 font-bold text-xl">{v}</div>
                 <div className="text-slate-400 text-xs mt-1">{l}</div>

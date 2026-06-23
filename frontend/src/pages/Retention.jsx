@@ -73,7 +73,7 @@ export default function Retention() {
                 </div>
                 <div className="bg-white/5 rounded-xl p-3 text-center">
                   <div className={`text-xl font-bold ${meta.color}`}>
-                    ₹{(strategy.revenue_impact / 100000).toFixed(1)}L
+                    ${(strategy.revenue_impact / 1000).toFixed(0)}K
                   </div>
                   <div className="text-xs text-slate-400 mt-0.5">Impact</div>
                 </div>

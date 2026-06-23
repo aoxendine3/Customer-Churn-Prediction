@@ -28,7 +28,7 @@ const STATS = [
   { n: '94.2%', t: 'Model Accuracy' },
   { n: '25.4K+', t: 'Customers Analyzed' },
   { n: '18.01%', t: 'Churn Risk Rate' },
-  { n: '₹8.45L', t: 'Revenue at Risk' },
+  { n: '$845K', t: 'Revenue at Risk' },
 ]
 
 export default function Landing({ onLogin }) {
@@ -137,7 +137,7 @@ export default function Landing({ onLogin }) {
           </FloatCard>
 
           <FloatCard
-            className="right-0 top-8" title="Revenue at Risk" value="₹8,45,000"
+            className="right-0 top-8" title="Revenue at Risk" value="$845,000"
             delay={0.5}
           >
             <ResponsiveContainer width="100%" height={70}>
@@ -226,8 +226,8 @@ export default function Landing({ onLogin }) {
           </p>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
-              { name: 'Starter', price: '₹9,999', desc: 'Ideal for growing ecommerce sites.', features: ['10,000 customers analyzed', 'XGBoost churn risk prediction', 'Email alerts', 'Standard CSV uploads'] },
-              { name: 'Pro', price: '₹24,999', desc: 'For established brands needing automation.', features: ['50,000 customers analyzed', 'Automated campaign triggers', 'Human-in-the-loop safety review', '24/7 client portal access'], popular: true },
+              { name: 'Starter', price: '$119', desc: 'Ideal for growing ecommerce sites.', features: ['10,000 customers analyzed', 'XGBoost churn risk prediction', 'Email alerts', 'Standard CSV uploads'] },
+              { name: 'Pro', price: '$299', desc: 'For established brands needing automation.', features: ['50,000 customers analyzed', 'Automated campaign triggers', 'Human-in-the-loop safety review', '24/7 client portal access'], popular: true },
               { name: 'Enterprise', price: 'Custom', desc: 'For high-scale institutional operations.', features: ['Unlimited customer records', 'Secure Enclave machine signature', 'Custom model fine-tuning', 'Dedicated system support'] },
             ].map((plan) => (
               <div key={plan.name} className={`glass rounded-3xl p-8 border flex flex-col relative card-3d ${plan.popular ? 'border-cyan-500/40 shadow-lg shadow-cyan-950/20' : 'border-white/10'}`}>

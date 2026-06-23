@@ -25,7 +25,7 @@ const FIELD_META = {
   location:                  { label: 'Location',                   type: 'text' },
   total_orders:              { label: 'Total Orders',               type: 'number', min: 0 },
   days_since_last_purchase:  { label: 'Days Since Last Purchase',   type: 'number', min: 0 },
-  avg_order_value:           { label: 'Avg Order Value (₹)',        type: 'number', min: 0 },
+  avg_order_value:           { label: 'Avg Order Value ($)',        type: 'number', min: 0 },
   cart_abandonment_rate:     { label: 'Cart Abandonment Rate (%)',  type: 'number', min: 0, max: 100 },
   website_visits:            { label: 'Website Visits',             type: 'number', min: 0 },
   customer_rating:           { label: 'Customer Rating (1–5)',      type: 'number', min: 1, max: 5 },

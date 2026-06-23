@@ -81,7 +81,7 @@ export default function Dashboard() {
       <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-5">
         <StatCard
           icon={DollarSign} title="Revenue at Risk"
-          value={`₹${(d.revenue_at_risk / 100000).toFixed(2)}L`}
+          value={`$${(d.revenue_at_risk / 1000).toFixed(0)}K`}
           delta="Updated today" tone="yellow"
         />
         <StatCard
@@ -91,7 +91,7 @@ export default function Dashboard() {
         />
         <StatCard
           icon={DollarSign} title="Monthly Savings"
-          value={`₹${(d.monthly_savings / 100000).toFixed(1)}L`}
+          value={`$${(d.monthly_savings / 1000).toFixed(0)}K`}
           delta="Via retention actions" tone="green" trend="up"
         />
         <StatCard

@@ -133,7 +133,7 @@ export default function RiskAnalysis() {
                       <span className={`px-2.5 py-1 rounded-lg text-xs font-medium ${riskBadge(c.risk)}`}>{c.risk}</span>
                     </td>
                     <td className="px-4 py-3 text-slate-300">
-                      {c.value ? `₹${c.value.toLocaleString()}` : '—'}
+                      {c.value ? `$${c.value.toLocaleString()}` : '—'}
                     </td>
                     <td className="px-4 py-3">
                       <button className="px-3 py-1 rounded-lg bg-cyan-500/10 text-cyan-300 text-xs hover:bg-cyan-500/20 flex items-center gap-1.5">
